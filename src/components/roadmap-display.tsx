@@ -9,9 +9,10 @@ interface RoadmapStep {
 
 interface RoadmapDisplayProps {
   steps: RoadmapStep[];
+  title: string;
 }
 
-export function RoadmapDisplay({ steps }: RoadmapDisplayProps) {
+export function RoadmapDisplay({ steps, title }: RoadmapDisplayProps) {
   if (steps.length === 0) return null;
 
   return (
@@ -19,6 +20,8 @@ export function RoadmapDisplay({ steps }: RoadmapDisplayProps) {
       <h2 className="text-2xl font-semibold text-foreground mb-8">
         Your Project Roadmap
       </h2>
+
+      <h3>{title}</h3>
       <div className="space-y-4">
         {steps.map((step, index) => (
           <div
@@ -26,7 +29,7 @@ export function RoadmapDisplay({ steps }: RoadmapDisplayProps) {
             className="group relative bg-card border border-border rounded-lg p-6 hover:border-accent/50 transition-all duration-300"
           >
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center text-accent font-semibold">
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 border border-accent/30 flex items-center justify-center text-accent font-semibold">
                 {index + 1}
               </div>
               <div className="flex-1 space-y-2">

@@ -35,7 +35,7 @@ export function ChatInput({ onSubmit, isLoading = false }: ChatInputProps) {
         <Button
           type="submit"
           disabled={!message.trim() || isLoading}
-          className="px-6 py-3 bg-accent text-accent-foreground hover:bg-accent/90 rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-6 py-3 bg-indigo-500 text-white hover:bg-indigo-500/90 rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? "Generating..." : "Generate"}
         </Button>
