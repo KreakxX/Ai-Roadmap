@@ -4,13 +4,14 @@ import { useState } from "react";
 import { AnimatedBackground } from "@/components/animated-background";
 import { ChatInput } from "@/components/chat-input";
 import { RoadmapDisplay } from "@/components/roadmap-display";
-import { setPriority } from "os";
 
 interface RoadmapStep {
-  id: number;
+  stepNumber: number;
   title: string;
   description: string;
-  duration: string;
+  estimatedTime: string;
+  deliverables: string[];
+  dependencies?: number[];
 }
 
 export default function Home() {
@@ -31,7 +32,9 @@ export default function Home() {
     });
 
     const roadmapData = await response.json();
-
+    const steps = roadmapData["steps"];
+    console.log(steps);
+    setRoadmapSteps(steps);
     setTitle(roadmapData["projectTitle"]);
 
     setIsLoading(false);
@@ -47,7 +50,7 @@ export default function Home() {
             AI-Powered Planning
           </div>
           <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 text-balance leading-tight">
-            Transform <span className="text-indigo-500 italic">Ideas</span> into
+            Kickstart <span className="text-indigo-500 italic">Ideas</span> into
             <br />
             <span className="text-accent">actionable roadmaps</span>
           </h1>

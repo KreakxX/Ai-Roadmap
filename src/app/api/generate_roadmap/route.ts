@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
  
   const response = await client.models.generateContent({
     model: 'gemini-2.0-flash',
-    contents: `Create a roadmap for: ${projectDescription}`,
+    contents: `Create a Coding roadmap for: ${projectDescription}, important dont include stuff like Research, assume that everythings done except the Coding Part, for each Project think of an Techstack and the first step should always be setting it up`,
     config: {
       responseMimeType: "application/json",
       responseSchema: schema

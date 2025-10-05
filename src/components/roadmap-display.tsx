@@ -1,10 +1,18 @@
 "use client";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
+import { ChevronDown } from "lucide-react";
 interface RoadmapStep {
-  id: number;
+  stepNumber: number;
   title: string;
   description: string;
-  duration: string;
+  estimatedTime: string;
+  deliverables: string[];
+  dependencies?: number[];
 }
 
 interface RoadmapDisplayProps {
@@ -25,7 +33,7 @@ export function RoadmapDisplay({ steps, title }: RoadmapDisplayProps) {
       <div className="space-y-4">
         {steps.map((step, index) => (
           <div
-            key={step.id}
+            key={step.stepNumber}
             className="group relative bg-card border border-border rounded-lg p-6 hover:border-accent/50 transition-all duration-300"
           >
             <div className="flex items-start gap-4">
@@ -39,9 +47,24 @@ export function RoadmapDisplay({ steps, title }: RoadmapDisplayProps) {
                 <p className="text-muted-foreground leading-relaxed">
                   {step.description}
                 </p>
+                <Collapsible>
+                  <CollapsibleTrigger>
+                    <ChevronDown className="h-4 w-4 text-gray-400"></ChevronDown>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="flex flex-row gap-3">
+                    {step.deliverables.map((deliverable, index) => (
+                      <div
+                        key={index}
+                        className="rounded-lg bg-indigo-400/20 px-2 py-1 text-xs text-gray-500 text-center"
+                      >
+                        {deliverable}
+                      </div>
+                    ))}
+                  </CollapsibleContent>
+                </Collapsible>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span className="px-2 py-1 bg-secondary rounded text-xs">
-                    {step.duration}
+                    {step.estimatedTime}
                   </span>
                 </div>
               </div>
