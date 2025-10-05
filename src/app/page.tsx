@@ -45,15 +45,22 @@ export default function Home() {
       <AnimatedBackground />
 
       <main className="relative z-10 container mx-auto px-4 py-12 md:py-20">
-        <header className="text-center mb-16 md:mb-24">
+        <header className="text-center  mb-16 md:mb-24">
+          <div className="flex justify-center items-center">
+            <div className="rounded-full w-[100px] text-sm text-accent mb-2 bg-indigo-500/60 border border-accent/20">
+              LaunchMap
+            </div>
+          </div>
           <div className="inline-block px-4 py-1.5 bg-accent/10 border border-accent/20 rounded-full text-sm text-accent mb-6">
             AI-Powered Planning
           </div>
+
           <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 text-balance leading-tight">
             Kickstart <span className="text-indigo-500 italic">Ideas</span> into
             <br />
             <span className="text-accent">actionable roadmaps</span>
           </h1>
+
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Describe your project and let AI generate a comprehensive
             step-by-step roadmap to bring your vision to life.
