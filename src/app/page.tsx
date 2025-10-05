@@ -1,103 +1,126 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { AnimatedBackground } from "@/components/animated-background";
+import { ChatInput } from "@/components/chat-input";
+import { RoadmapDisplay } from "@/components/roadmap-display";
+
+interface RoadmapStep {
+  id: number;
+  title: string;
+  description: string;
+  duration: string;
+}
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [roadmapSteps, setRoadmapSteps] = useState<RoadmapStep[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const generateRoadmap = async (projectDescription: string) => {
+    setIsLoading(true);
+
+    // Simulate AI generation - replace with actual AI call
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    // Mock roadmap generation based on input
+    const mockSteps: RoadmapStep[] = [
+      {
+        id: 1,
+        title: "Research & Planning",
+        description:
+          "Define project scope, identify target audience, analyze competitors, and create detailed requirements documentation.",
+        duration: "1-2 weeks",
+      },
+      {
+        id: 2,
+        title: "Design & Prototyping",
+        description:
+          "Create wireframes, design user interface mockups, develop interactive prototypes, and gather initial feedback.",
+        duration: "2-3 weeks",
+      },
+      {
+        id: 3,
+        title: "Development Setup",
+        description:
+          "Set up development environment, choose tech stack, configure version control, and establish CI/CD pipeline.",
+        duration: "1 week",
+      },
+      {
+        id: 4,
+        title: "Core Development",
+        description:
+          "Build main features, implement business logic, integrate APIs, and develop database architecture.",
+        duration: "4-6 weeks",
+      },
+      {
+        id: 5,
+        title: "Testing & Quality Assurance",
+        description:
+          "Conduct unit testing, perform integration tests, execute user acceptance testing, and fix identified bugs.",
+        duration: "2-3 weeks",
+      },
+      {
+        id: 6,
+        title: "Launch & Deployment",
+        description:
+          "Deploy to production environment, monitor performance, gather user feedback, and plan iterative improvements.",
+        duration: "1-2 weeks",
+      },
+    ];
+
+    setRoadmapSteps(mockSteps);
+    setIsLoading(false);
+  };
+
+  return (
+    <div className="min-h-screen relative">
+      <AnimatedBackground />
+
+      <main className="relative z-10 container mx-auto px-4 py-12 md:py-20">
+        {/* Header */}
+        <header className="text-center mb-16 md:mb-24">
+          <div className="inline-block px-4 py-1.5 bg-accent/10 border border-accent/20 rounded-full text-sm text-accent mb-6">
+            AI-Powered Planning
+          </div>
+          <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 text-balance leading-tight">
+            Transform ideas into
+            <br />
+            <span className="text-accent">actionable roadmaps</span>
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Describe your project and let AI generate a comprehensive
+            step-by-step roadmap to bring your vision to life.
+          </p>
+        </header>
+
+        {/* Chat Input */}
+        <div className="mb-12">
+          <ChatInput onSubmit={generateRoadmap} isLoading={isLoading} />
         </div>
+
+        {/* Roadmap Display */}
+        {isLoading && (
+          <div className="flex items-center justify-center py-12">
+            <div className="flex items-center gap-3 text-muted-foreground">
+              <div className="w-2 h-2 bg-accent rounded-full animate-bounce [animation-delay:-0.3s]" />
+              <div className="w-2 h-2 bg-accent rounded-full animate-bounce [animation-delay:-0.15s]" />
+              <div className="w-2 h-2 bg-accent rounded-full animate-bounce" />
+              <span className="ml-2">Generating your roadmap...</span>
+            </div>
+          </div>
+        )}
+
+        <RoadmapDisplay steps={roadmapSteps} />
+
+        {/* Footer */}
+        {roadmapSteps.length === 0 && !isLoading && (
+          <div className="mt-24 text-center">
+            <p className="text-sm text-muted-foreground">
+              Powered by advanced AI to help you plan smarter, not harder
+            </p>
+          </div>
+        )}
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
