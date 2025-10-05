@@ -11,7 +11,7 @@ interface RoadmapStep {
   title: string;
   description: string;
   estimatedTime: string;
-  deliverables: string[];
+  deliverables?: string[];
   dependencies?: number[];
 }
 
@@ -42,26 +42,28 @@ export function RoadmapDisplay({ steps, title }: RoadmapDisplayProps) {
               </div>
               <div className="flex-1 space-y-2">
                 <h3 className="text-lg font-semibold text-foreground group-hover:text-accent transition-colors">
-                  {step.title}
+                  {step.stepNumber} {step.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
                   {step.description}
                 </p>
-                <Collapsible>
-                  <CollapsibleTrigger>
-                    <ChevronDown className="h-4 w-4 text-gray-400"></ChevronDown>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="flex flex-row gap-3">
-                    {step.deliverables.map((deliverable, index) => (
-                      <div
-                        key={index}
-                        className="rounded-lg bg-indigo-400/20 px-2 py-1 text-xs text-gray-500 text-center"
-                      >
-                        {deliverable}
-                      </div>
-                    ))}
-                  </CollapsibleContent>
-                </Collapsible>
+                {step.deliverables && step.deliverables.length > 0 ? (
+                  <Collapsible>
+                    <CollapsibleTrigger>
+                      <ChevronDown className="h-4 w-4 text-gray-400"></ChevronDown>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="flex flex-row gap-3">
+                      {step.deliverables.map((deliverable, index) => (
+                        <div
+                          key={index}
+                          className="rounded-lg bg-indigo-400/20 px-2 py-1 text-xs text-gray-500 text-center"
+                        >
+                          {deliverable}
+                        </div>
+                      ))}
+                    </CollapsibleContent>
+                  </Collapsible>
+                ) : null}
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <span className="px-2 py-1 bg-secondary rounded text-xs">
                     {step.estimatedTime}

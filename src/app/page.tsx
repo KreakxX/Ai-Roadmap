@@ -10,7 +10,7 @@ interface RoadmapStep {
   title: string;
   description: string;
   estimatedTime: string;
-  deliverables: string[];
+  deliverables?: string[];
   dependencies?: number[];
 }
 
